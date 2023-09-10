@@ -24,11 +24,8 @@ let TodoController = class TodoController {
     create(createTodoDto) {
         return this.todoService.create(createTodoDto);
     }
-    findAll() {
-        return this.todoService.findAll();
-    }
-    findOne(id) {
-        return this.todoService.findOne(+id);
+    findAll(userId) {
+        return this.todoService.findAllForUser(userId);
     }
     update(id, updateTodoDto) {
         return this.todoService.update(+id, updateTodoDto);
@@ -48,16 +45,9 @@ __decorate([
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], TodoController.prototype, "findAll", null);
-__decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], TodoController.prototype, "findOne", null);
+], TodoController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),
@@ -74,7 +64,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], TodoController.prototype, "remove", null);
 exports.TodoController = TodoController = __decorate([
-    (0, common_1.Controller)('todo'),
+    (0, common_1.Controller)('todos'),
     __metadata("design:paramtypes", [todo_service_1.TodoService])
 ], TodoController);
 //# sourceMappingURL=todo.controller.js.map

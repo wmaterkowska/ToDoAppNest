@@ -1,3 +1,4 @@
+import { User } from "src/user/entities/user.entity";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
@@ -15,6 +16,9 @@ export class Todo {
   @Column({ default: false })
   done: boolean;
 
-  @Column()
+  @Column({ default: new Date() })
   lastChange: Date;
+
+  @Column()
+  userId: string;
 }

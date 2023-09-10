@@ -8,7 +8,8 @@ import { DatabaseModule } from './typeorm/database.module';
 import * as Joi from 'joi';
 
 @Module({
-  imports: [TodoModule,
+  imports: [
+    TodoModule,
     UserModule,
     ConfigModule.forRoot({
       isGlobal: true,
@@ -19,7 +20,8 @@ import * as Joi from 'joi';
         PORT: Joi.number().default(3000),
       }),
     }),
-    DatabaseModule],
+    DatabaseModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

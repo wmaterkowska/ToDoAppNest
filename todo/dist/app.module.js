@@ -20,7 +20,8 @@ let AppModule = class AppModule {
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [todo_module_1.TodoModule,
+        imports: [
+            todo_module_1.TodoModule,
             user_module_1.UserModule,
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
@@ -31,7 +32,8 @@ exports.AppModule = AppModule = __decorate([
                     PORT: Joi.number().default(3000),
                 }),
             }),
-            database_module_1.DatabaseModule],
+            database_module_1.DatabaseModule
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

@@ -31,9 +31,13 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Todo.prototype, "done", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ default: new Date() }),
     __metadata("design:type", Date)
 ], Todo.prototype, "lastChange", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Todo.prototype, "userId", void 0);
 exports.Todo = Todo = __decorate([
     (0, typeorm_1.Entity)()
 ], Todo);
