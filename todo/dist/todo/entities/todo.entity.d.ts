@@ -1,6 +1,7 @@
 export declare class Todo {
     id: number;
     title?: string;
-    text: string;
-    lastUpdate: Date;
+    content: string;
+    done: boolean;
+    lastChange: Date;
 }

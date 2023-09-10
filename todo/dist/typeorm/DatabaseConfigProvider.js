@@ -17,11 +17,15 @@ let DatabaseConfigProvider = class DatabaseConfigProvider {
         this.configService = configService;
     }
     async createDatabaseConfig() {
+        const dbHost = await this.configService.get('DATABASE_HOST');
+        const dbPort = await this.configService.get('DATABASE_PORT');
         const dbUrl = await this.configService.get('DATABASE_URL');
         const dbName = await this.configService.get('DATABASE_NAME');
         const username = await this.configService.get('DATABASE_USERNAME');
         const password = await this.configService.get('DATABASE_PASSWORD');
         return {
+            dbHost,
+            dbPort,
             dbUrl,
             dbName,
             username,

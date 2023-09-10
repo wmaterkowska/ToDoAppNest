@@ -1,5 +1,4 @@
 import { Module } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
 import { DatabaseConfigProvider } from "./DatabaseConfigProvider";
 import { TypeOrmModule } from "@nestjs/typeorm";
 
@@ -11,17 +10,21 @@ import { TypeOrmModule } from "@nestjs/typeorm";
         const dbConfig = await configService.createDatabaseConfig();
         return {
           type: 'postgres',
-          host: dbConfig.dbUrl,
+          host: dbConfig.dbHost,
+          port: dbConfig.dbPort,
           username: dbConfig.username,
           password: dbConfig.password,
           database: dbConfig.dbName,
           synchronize: true,
           autoLoadEntities: true,
+          logging: true,
         };
       },
       inject: [DatabaseConfigProvider],
     }),
   ],
+  exports: [DatabaseModule, DatabaseConfigProvider],
+  providers: [DatabaseConfigProvider],
 })
 
 export class DatabaseModule { }

@@ -22,17 +22,21 @@ exports.DatabaseModule = DatabaseModule = __decorate([
                     const dbConfig = await configService.createDatabaseConfig();
                     return {
                         type: 'postgres',
-                        host: dbConfig.dbUrl,
+                        host: dbConfig.dbHost,
+                        port: dbConfig.dbPort,
                         username: dbConfig.username,
                         password: dbConfig.password,
                         database: dbConfig.dbName,
                         synchronize: true,
                         autoLoadEntities: true,
+                        logging: true,
                     };
                 },
                 inject: [DatabaseConfigProvider_1.DatabaseConfigProvider],
             }),
         ],
+        exports: [DatabaseModule, DatabaseConfigProvider_1.DatabaseConfigProvider],
+        providers: [DatabaseConfigProvider_1.DatabaseConfigProvider],
     })
 ], DatabaseModule);
 //# sourceMappingURL=database.module.js.map

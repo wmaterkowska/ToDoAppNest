@@ -10,8 +10,11 @@ export class Todo {
   title?: string;
 
   @Column()
-  text: string;
+  content: string;
+
+  @Column({ default: false })
+  done: boolean;
 
   @Column()
-  lastUpdate: Date;
+  lastChange: Date;
 }

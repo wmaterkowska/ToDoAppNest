@@ -1,5 +1,7 @@
 import { ConfigService } from '@nestjs/config';
 interface DatabaseConfig {
+    dbHost: string;
+    dbPort: number;
     dbUrl: string;
     dbName: string;
     username: string;
