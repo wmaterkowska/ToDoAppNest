@@ -34,6 +34,15 @@ let UserService = class UserService {
     async findOne(id) {
         return await this.userRepository.findOneBy({ id });
     }
+    async update(id, updateUserDto) {
+        const updatedUser = await this.userRepository.findOneBy({ id });
+        if (!updatedUser) {
+            throw new common_1.NotFoundException(`User with Id ${id} not found.`);
+        }
+        const { password } = updateUserDto;
+        updatedUser.password = password;
+        return await this.userRepository.save(updatedUser);
+    }
     async remove(id) {
         await this.userRepository.delete(id);
         return `User with #${id} was removed.`;

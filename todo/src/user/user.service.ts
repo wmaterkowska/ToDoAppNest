@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm';
@@ -27,9 +27,15 @@ export class UserService {
     return await this.userRepository.findOneBy({ id });
   }
 
-  // update(id: number, updateUserDto: UpdateUserDto) {
-  //   return `This action updates a #${id} user`;
-  // }
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    const updatedUser = await this.userRepository.findOneBy({ id });
+    if (!updatedUser) {
+      throw new NotFoundException(`User with Id ${id} not found.`)
+    }
+    const { password } = updateUserDto;
+    updatedUser.password = password;
+    return await this.userRepository.save(updatedUser);
+  }
 
   async remove(id: number) {
     await this.userRepository.delete(id)
