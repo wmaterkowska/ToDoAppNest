@@ -28,17 +28,15 @@ let UserService = class UserService {
         user.password = password;
         return await this.userRepository.save(user);
     }
-    findAll() {
-        return `This action returns all user`;
+    async findAll() {
+        return await this.userRepository.find();
     }
-    findOne(id) {
-        return `This action returns a #${id} user`;
+    async findOne(id) {
+        return await this.userRepository.findOneBy({ id });
     }
-    update(id, updateUserDto) {
-        return `This action updates a #${id} user`;
-    }
-    remove(id) {
-        return `This action removes a #${id} user`;
+    async remove(id) {
+        await this.userRepository.delete(id);
+        return `User with #${id} was removed.`;
     }
 };
 exports.UserService = UserService;
