@@ -1,9 +1,8 @@
-import { IsArray, IsNotEmpty, IsString } from "class-validator";
-import { Todo } from "src/todo/entities/todo.entity";
+import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 
 export class CreateUserDto {
 
-  @IsString()
+  @IsEmail()
   @IsNotEmpty()
   email: string;
 

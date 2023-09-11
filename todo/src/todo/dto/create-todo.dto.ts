@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsBoolean, IsNotEmpty, IsString } from "class-validator";
 
 export class CreateTodoDto {
   @IsString()
@@ -7,4 +7,8 @@ export class CreateTodoDto {
   @IsString()
   @IsNotEmpty()
   content: string;
+
+  @IsBoolean()
+  done?: boolean;
+
 }

@@ -45,7 +45,6 @@ let UserService = class UserService {
     }
     async remove(id) {
         await this.userRepository.delete(id);
-        return `User with #${id} was removed.`;
     }
 };
 exports.UserService = UserService;

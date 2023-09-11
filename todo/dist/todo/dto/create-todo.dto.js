@@ -23,4 +23,8 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateTodoDto.prototype, "content", void 0);
+__decorate([
+    (0, class_validator_1.IsBoolean)(),
+    __metadata("design:type", Boolean)
+], CreateTodoDto.prototype, "done", void 0);
 //# sourceMappingURL=create-todo.dto.js.map

@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const todo_service_1 = require("./todo.service");
 const create_todo_dto_1 = require("./dto/create-todo.dto");
 const update_todo_dto_1 = require("./dto/update-todo.dto");
+const find_entity_params_dto_1 = require("../shared/find-entity-params.dto");
 let TodoController = class TodoController {
     constructor(todoService) {
         this.todoService = todoService;
@@ -27,11 +28,11 @@ let TodoController = class TodoController {
     findAll(userId) {
         return this.todoService.findAllForUser(userId);
     }
-    update(id, updateTodoDto) {
-        return this.todoService.update(+id, updateTodoDto);
+    update(param, updateTodoDto) {
+        return this.todoService.update(param.id, updateTodoDto);
     }
-    remove(id) {
-        return this.todoService.remove(+id);
+    remove(params) {
+        return this.todoService.remove(params.id);
     }
 };
 exports.TodoController = TodoController;
@@ -50,17 +51,17 @@ __decorate([
 ], TodoController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_todo_dto_1.UpdateTodoDto]),
+    __metadata("design:paramtypes", [find_entity_params_dto_1.FindEntityParamsDto, update_todo_dto_1.UpdateTodoDto]),
     __metadata("design:returntype", void 0)
 ], TodoController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [find_entity_params_dto_1.FindEntityParamsDto]),
     __metadata("design:returntype", void 0)
 ], TodoController.prototype, "remove", null);
 exports.TodoController = TodoController = __decorate([
