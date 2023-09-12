@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 export declare class TodoService {
     private todoRepository;
     constructor(todoRepository: Repository<Todo>);
-    create(createTodoDto: CreateTodoDto): Promise<Todo>;
+    create(userId: string, createTodoDto: CreateTodoDto): Promise<Todo>;
     findAllForUser(userId: string): Promise<Todo[]>;
     findOne(id: number): Promise<Todo>;
     update(id: number, updateTodoDto: UpdateTodoDto): Promise<Todo>;

@@ -12,7 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const todo_entity_1 = require("../../todo/entities/todo.entity");
 const typeorm_1 = require("typeorm");
+const bcrypt = require("bcrypt");
 let User = class User {
+    async validatePassword(password) {
+        return bcrypt.compare(password, this.password);
+    }
 };
 exports.User = User;
 __decorate([

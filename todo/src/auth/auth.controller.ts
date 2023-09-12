@@ -3,21 +3,22 @@ import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 import { AuthGuard } from './auth.guard';
+import { UserService } from 'src/user/user.service';
 
 
 @Controller('auth')
 export class AuthController {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private userService: UserService) { }
 
   @Post('login')
   signIn(@Body() signInDto: SignInDto) {
-    return this.authService.signIn(signInDto.id, signInDto.email, signInDto.password)
+    return this.authService.login(signInDto.id, signInDto.email, signInDto.password)
   }
 
   @Post('signup')
   signUp(@Body() signUpDto: SignUpDto) {
-    return this.authService.signUp(signUpDto.email, signUpDto.password)
+    return this.userService.create(signUpDto);
   }
 
   @UseGuards(AuthGuard)

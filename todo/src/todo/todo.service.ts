@@ -11,11 +11,14 @@ export class TodoService {
   constructor(@InjectRepository(Todo) private todoRepository: Repository<Todo>) { }
 
 
-  async create(createTodoDto: CreateTodoDto): Promise<Todo> {
-    const { title, content } = createTodoDto;
+  async create(userId: string, createTodoDto: CreateTodoDto): Promise<Todo> {
+    const { title, content, done } = createTodoDto;
     const todo = new Todo();
     todo.title = title;
     todo.content = content;
+    todo.done = done;
+    todo.userId = userId;
+    // todo.lastChange = new Date();
     return await this.todoRepository.save(todo);
   }
 

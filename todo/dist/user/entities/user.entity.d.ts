@@ -4,4 +4,5 @@ export declare class User {
     email: string;
     password: string;
     todos: Todo[];
+    validatePassword(password: string): Promise<boolean>;
 }

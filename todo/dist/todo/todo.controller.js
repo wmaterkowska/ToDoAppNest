@@ -18,12 +18,14 @@ const todo_service_1 = require("./todo.service");
 const create_todo_dto_1 = require("./dto/create-todo.dto");
 const update_todo_dto_1 = require("./dto/update-todo.dto");
 const find_entity_params_dto_1 = require("../shared/find-entity-params.dto");
+const auth_guard_1 = require("../auth/auth.guard");
+const get_user_id_decorator_1 = require("../auth/decorator/get-user-id.decorator");
 let TodoController = class TodoController {
     constructor(todoService) {
         this.todoService = todoService;
     }
-    create(createTodoDto) {
-        return this.todoService.create(createTodoDto);
+    create(userId, createTodoDto) {
+        return this.todoService.create(userId, createTodoDto);
     }
     findAll(userId) {
         return this.todoService.findAllForUser(userId);
@@ -38,9 +40,10 @@ let TodoController = class TodoController {
 exports.TodoController = TodoController;
 __decorate([
     (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, get_user_id_decorator_1.UserId)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_todo_dto_1.CreateTodoDto]),
+    __metadata("design:paramtypes", [String, create_todo_dto_1.CreateTodoDto]),
     __metadata("design:returntype", void 0)
 ], TodoController.prototype, "create", null);
 __decorate([
@@ -65,6 +68,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], TodoController.prototype, "remove", null);
 exports.TodoController = TodoController = __decorate([
+    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
     (0, common_1.Controller)('todos'),
     __metadata("design:paramtypes", [todo_service_1.TodoService])
 ], TodoController);

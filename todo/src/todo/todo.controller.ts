@@ -4,6 +4,7 @@ import { CreateTodoDto } from './dto/create-todo.dto';
 import { UpdateTodoDto } from './dto/update-todo.dto';
 import { FindEntityParamsDto } from 'src/shared/find-entity-params.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { UserId } from 'src/auth/decorator/get-user-id.decorator';
 
 @UseGuards(AuthGuard)
 @Controller('todos')
@@ -11,8 +12,8 @@ export class TodoController {
   constructor(private readonly todoService: TodoService) { }
 
   @Post()
-  create(@Body() createTodoDto: CreateTodoDto) {
-    return this.todoService.create(createTodoDto);
+  create(@UserId() userId: string, @Body() createTodoDto: CreateTodoDto) {
+    return this.todoService.create(userId, createTodoDto);
   }
 
   @Get()

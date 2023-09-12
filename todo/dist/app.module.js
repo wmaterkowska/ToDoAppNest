@@ -15,6 +15,7 @@ const user_module_1 = require("./user/user.module");
 const config_1 = require("@nestjs/config");
 const database_module_1 = require("./typeorm/database.module");
 const Joi = require("joi");
+const auth_module_1 = require("./auth/auth.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -23,6 +24,7 @@ exports.AppModule = AppModule = __decorate([
         imports: [
             todo_module_1.TodoModule,
             user_module_1.UserModule,
+            auth_module_1.AuthModule,
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
                 validationSchema: Joi.object({
@@ -32,7 +34,7 @@ exports.AppModule = AppModule = __decorate([
                     PORT: Joi.number().default(3000),
                 }),
             }),
-            database_module_1.DatabaseModule
+            database_module_1.DatabaseModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

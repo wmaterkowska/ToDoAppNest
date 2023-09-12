@@ -16,6 +16,7 @@ class CreateTodoDto {
 exports.CreateTodoDto = CreateTodoDto;
 __decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateTodoDto.prototype, "title", void 0);
 __decorate([
@@ -25,6 +26,7 @@ __decorate([
 ], CreateTodoDto.prototype, "content", void 0);
 __decorate([
     (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Boolean)
 ], CreateTodoDto.prototype, "done", void 0);
 //# sourceMappingURL=create-todo.dto.js.map

@@ -6,11 +6,13 @@ import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './typeorm/database.module';
 import * as Joi from 'joi';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     TodoModule,
     UserModule,
+    AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
@@ -20,7 +22,7 @@ import * as Joi from 'joi';
         PORT: Joi.number().default(3000),
       }),
     }),
-    DatabaseModule
+    DatabaseModule,
   ],
   controllers: [AppController],
   providers: [AppService],

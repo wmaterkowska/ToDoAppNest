@@ -16,6 +16,7 @@ async function bootstrap() {
   app.enableCors({
     origin: "http://localhost:4321/*",
     methods: "GET, PATCH, POST, DELETE",
+    allowedHeaders: ['Content-Type', 'Authorization']
   });
   await app.listen(port);
   console.log("App is running at port: " + port)

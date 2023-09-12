@@ -21,11 +21,13 @@ let TodoService = class TodoService {
     constructor(todoRepository) {
         this.todoRepository = todoRepository;
     }
-    async create(createTodoDto) {
-        const { title, content } = createTodoDto;
+    async create(userId, createTodoDto) {
+        const { title, content, done } = createTodoDto;
         const todo = new todo_entity_1.Todo();
         todo.title = title;
         todo.content = content;
+        todo.done = done;
+        todo.userId = userId;
         return await this.todoRepository.save(todo);
     }
     async findAllForUser(userId) {
