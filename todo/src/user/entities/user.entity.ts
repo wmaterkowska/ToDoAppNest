@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import { Todo } from "src/todo/entities/todo.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -15,5 +16,4 @@ export class User {
 
   @OneToMany(type => Todo, todo => todo.userId)
   todos: Todo[]
-
 }
