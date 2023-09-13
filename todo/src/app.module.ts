@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './typeorm/database.module';
 import * as Joi from 'joi';
 import { AuthModule } from './auth/auth.module';
+import { PasswordModule } from './password/password.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { AuthModule } from './auth/auth.module';
       }),
     }),
     DatabaseModule,
+    PasswordModule,
   ],
   controllers: [AppController],
   providers: [AppService],
