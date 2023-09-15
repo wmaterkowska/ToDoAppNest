@@ -1,7 +1,8 @@
 import { Todo } from "src/todo/entities/todo.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import * as bcrypt from 'bcrypt';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Password } from "src/password/entities/password.entity";
 
+@Unique(["email"])
 @Entity()
 export class User {
 
@@ -9,15 +10,17 @@ export class User {
   id: number;
 
   @Column()
-  email: string;
+  username: string;
 
   @Column()
+  email: string;
+
+  @OneToOne(() => Password)
+  @JoinColumn()
   password: string;
 
   @OneToMany(type => Todo, todo => todo.userId)
   todos: Todo[]
 
-  async validatePassword(password: string): Promise<boolean> {
-    return bcrypt.compare(password, this.password);
-  }
+
 }

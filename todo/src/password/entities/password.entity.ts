@@ -9,7 +9,6 @@ export class Password {
   @Column()
   hash: string;
 
-  @OneToOne(() => User)
-  @JoinColumn()
+  @Column()
   user: User;
 }

@@ -13,23 +13,25 @@ export class UserService {
 
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const { email, password } = createUserDto;
-
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const { username, email } = createUserDto;
 
     const user = new User();
+    user.username = username;
     user.email = email;
-    user.password = hashedPassword;
+
     return await this.userRepository.save(user);
   }
 
-  async findAll() {
-    return await this.userRepository.find();
+  // async findAll() {
+  //   return await this.userRepository.find();
+  // }
+
+  async findOneById(id: number) {
+    return await this.userRepository.findOneBy({ id });
   }
 
-  async findOne(id: number) {
-    return await this.userRepository.findOneBy({ id });
+  async findOneByEmail(email: string) {
+    return await this.userRepository.findOneBy({ email });
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
@@ -37,8 +39,8 @@ export class UserService {
     if (!updatedUser) {
       throw new NotFoundException(`User with Id ${id} not found.`)
     }
-    const { password } = updateUserDto;
-    updatedUser.password = password;
+    // const { password } = updateUserDto;
+    // updatedUser.password = password;
     return await this.userRepository.save(updatedUser);
   }
 

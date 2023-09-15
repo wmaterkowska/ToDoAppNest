@@ -2,22 +2,28 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
+import { SignInDto } from './dto/sign-in.dto';
+import { SignUpDto } from './dto/sign-up.dto';
+import { PasswordService } from 'src/password/password.service';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { CreatePasswordDto } from 'src/password/dto/create-password.dto';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private userService: UserService, private jwtService: JwtService) { }
+  constructor(private userService: UserService, private passwordService: PasswordService, private jwtService: JwtService) { }
 
-  async login(id: number, email: string, pass: string) {
-    const user = await this.userService.findOne(id);
-    const isMatchPassword = await bcrypt.compare(user.password, pass);
-    if (isMatchPassword || user?.email !== email) {
+  async login(signInDto: SignInDto) {
+
+    const { email, password } = signInDto;
+    const user = await this.userService.findOneByEmail(email);
+    const passwordFromDatabase = user.password;
+
+    const isMatchPassword = await bcrypt.compare(passwordFromDatabase, password);
+    if (isMatchPassword) {
       throw new UnauthorizedException();
     }
 
-    // TODO: Generate a JWT and return it here
-    // instead of the user object
-    // TODO: Hash password
     const payload = { sub: user.id, email: user.email };
 
     return {
@@ -26,7 +32,18 @@ export class AuthService {
     };
   }
 
-  // TODO: signup
 
+  // TODO: signup
+  async signup(signUpDto: SignUpDto) {
+    const { username, email, password } = signUpDto;
+
+    const createUserDto: CreateUserDto = { username: username, email: email };
+    const createPasswordDto: CreatePasswordDto = { password: password }
+
+    const newUser = await this.userService.create(createUserDto);
+    await this.passwordService.create(newUser, createPasswordDto);
+
+    return true;
+  }
 
 }

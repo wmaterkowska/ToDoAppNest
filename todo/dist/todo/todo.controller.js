@@ -43,13 +43,13 @@ __decorate([
     __param(0, (0, get_user_id_decorator_1.UserId)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, create_todo_dto_1.CreateTodoDto]),
+    __metadata("design:paramtypes", [Number, create_todo_dto_1.CreateTodoDto]),
     __metadata("design:returntype", void 0)
 ], TodoController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], TodoController.prototype, "findAll", null);
 __decorate([

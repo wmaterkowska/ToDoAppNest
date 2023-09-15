@@ -12,12 +12,12 @@ export class TodoController {
   constructor(private readonly todoService: TodoService) { }
 
   @Post()
-  create(@UserId() userId: string, @Body() createTodoDto: CreateTodoDto) {
+  create(@UserId() userId: number, @Body() createTodoDto: CreateTodoDto) {
     return this.todoService.create(userId, createTodoDto);
   }
 
   @Get()
-  findAll(userId: string) {
+  findAll(userId: number) {
     return this.todoService.findAllForUser(userId);
   }
 

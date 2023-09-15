@@ -4,5 +4,5 @@ export declare class Todo {
     content: string;
     done?: boolean;
     lastChange: Date;
-    userId: string;
+    userId: number;
 }

@@ -10,6 +10,7 @@ exports.DatabaseModule = void 0;
 const common_1 = require("@nestjs/common");
 const DatabaseConfigProvider_1 = require("./DatabaseConfigProvider");
 const typeorm_1 = require("@nestjs/typeorm");
+const UniqueValidation_1 = require("../shared/UniqueValidation");
 let DatabaseModule = class DatabaseModule {
 };
 exports.DatabaseModule = DatabaseModule;
@@ -36,7 +37,7 @@ exports.DatabaseModule = DatabaseModule = __decorate([
             }),
         ],
         exports: [DatabaseModule, DatabaseConfigProvider_1.DatabaseConfigProvider],
-        providers: [DatabaseConfigProvider_1.DatabaseConfigProvider],
+        providers: [DatabaseConfigProvider_1.DatabaseConfigProvider, UniqueValidation_1.IsUniqueContraint],
     })
 ], DatabaseModule);
 //# sourceMappingURL=database.module.js.map

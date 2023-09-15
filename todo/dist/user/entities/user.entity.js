@@ -12,11 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const todo_entity_1 = require("../../todo/entities/todo.entity");
 const typeorm_1 = require("typeorm");
-const bcrypt = require("bcrypt");
+const password_entity_1 = require("../../password/entities/password.entity");
 let User = class User {
-    async validatePassword(password) {
-        return bcrypt.compare(password, this.password);
-    }
 };
 exports.User = User;
 __decorate([
@@ -26,9 +23,14 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], User.prototype, "email", void 0);
+], User.prototype, "username", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], User.prototype, "email", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => password_entity_1.Password),
+    (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
@@ -36,6 +38,7 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "todos", void 0);
 exports.User = User = __decorate([
+    (0, typeorm_1.Unique)(["email"]),
     (0, typeorm_1.Entity)()
 ], User);
 //# sourceMappingURL=user.entity.js.map
