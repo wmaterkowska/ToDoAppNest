@@ -1,6 +1,8 @@
+import 'reflect-metadata';
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "src/user/entities/user.entity";
-import { Column, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
+@Entity()
 export class Password {
 
   @PrimaryGeneratedColumn()
@@ -10,5 +12,6 @@ export class Password {
   hash: string;
 
   @Column()
-  user: User;
+  @OneToOne(() => User)
+  userId: number;
 }

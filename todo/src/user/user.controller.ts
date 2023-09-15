@@ -22,7 +22,7 @@ export class UserController {
 
   @Get(':id')
   findOne(@Param() params: FindEntityParamsDto) {
-    return this.userService.findOne(params.id);
+    return this.userService.findOneById(params.id);
   }
 
   @Patch(':id')

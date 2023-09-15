@@ -16,7 +16,7 @@ export class PasswordService {
     private readonly userService: UserService) { }
 
 
-  async create(user: User, createPasswordDto: CreatePasswordDto) {
+  async create(userId: number, createPasswordDto: CreatePasswordDto) {
     const { password } = createPasswordDto;
 
     const newPassword = new Password();
@@ -24,7 +24,7 @@ export class PasswordService {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     newPassword.hash = hashedPassword;
-    newPassword.user = user;
+    newPassword.userId = userId;
 
     return await this.passwordRepository.save(newPassword);
   }
@@ -37,13 +37,17 @@ export class PasswordService {
   //   return `This action returns a #${id} password`;
   // }
 
+  async findOneByUserId(userId: number) {
+    return await this.passwordRepository.findOneBy({ userId });
+  }
+
   async update(userId: number, updatePasswordDto: UpdatePasswordDto) {
     const { password } = updatePasswordDto;
-    const user = await this.userService.findOneById(userId);
-    if (!user) {
-      throw new NotFoundException(`User with Id ${userId} not found.`)
-    }
-    const updatedPassword = await this.passwordRepository.findOneBy({ user });
+    // const user = await this.userService.findOneById(userId);
+    // if (!user) {
+    //   throw new NotFoundException(`User with Id ${userId} not found.`)
+    // }
+    const updatedPassword = await this.passwordRepository.findOneBy({ userId: userId });
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);

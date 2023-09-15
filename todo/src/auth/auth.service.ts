@@ -17,10 +17,10 @@ export class AuthService {
 
     const { email, password } = signInDto;
     const user = await this.userService.findOneByEmail(email);
-    const passwordFromDatabase = user.password;
+    const passwordFromDatabase = (await this.passwordService.findOneByUserId(user.id)).hash
 
-    const isMatchPassword = await bcrypt.compare(passwordFromDatabase, password);
-    if (isMatchPassword) {
+    const isMatchPassword = await bcrypt.compare(password, passwordFromDatabase);
+    if (!isMatchPassword) {
       throw new UnauthorizedException();
     }
 
@@ -33,7 +33,6 @@ export class AuthService {
   }
 
 
-  // TODO: signup
   async signup(signUpDto: SignUpDto) {
     const { username, email, password } = signUpDto;
 
@@ -41,7 +40,7 @@ export class AuthService {
     const createPasswordDto: CreatePasswordDto = { password: password }
 
     const newUser = await this.userService.create(createUserDto);
-    await this.passwordService.create(newUser, createPasswordDto);
+    await this.passwordService.create(newUser.id, createPasswordDto);
 
     return true;
   }

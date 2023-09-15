@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 export declare class Todo {
     id: number;
     title?: string;

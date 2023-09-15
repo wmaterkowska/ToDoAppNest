@@ -1,5 +1,6 @@
-import { Todo } from "src/todo/entities/todo.entity";
+import 'reflect-metadata';
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
+import { Todo } from "src/todo/entities/todo.entity";
 import { Password } from "src/password/entities/password.entity";
 
 @Unique(["email"])
@@ -16,11 +17,10 @@ export class User {
   email: string;
 
   @OneToOne(() => Password)
-  @JoinColumn()
-  password: string;
+  @JoinColumn({ name: "id" })
+  password: Password;
 
   @OneToMany(type => Todo, todo => todo.userId)
   todos: Todo[]
-
 
 }

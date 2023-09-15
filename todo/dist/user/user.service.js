@@ -24,14 +24,18 @@ let UserService = class UserService {
     async create(createUserDto) {
         const { username, email } = createUserDto;
         const user = new user_entity_1.User();
+        user.username = username;
         user.email = email;
         return await this.userRepository.save(user);
     }
     async findAll() {
-        return await this.userRepository.find();
+        return await this.userRepository.find({ relations: ["password", "todos"] });
     }
-    async findOne(id) {
+    async findOneById(id) {
         return await this.userRepository.findOneBy({ id });
+    }
+    async findOneByEmail(email) {
+        return await this.userRepository.findOneBy({ email });
     }
     async update(id, updateUserDto) {
         const updatedUser = await this.userRepository.findOneBy({ id });

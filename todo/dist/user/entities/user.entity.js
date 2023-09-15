@@ -10,8 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
-const todo_entity_1 = require("../../todo/entities/todo.entity");
+require("reflect-metadata");
 const typeorm_1 = require("typeorm");
+const todo_entity_1 = require("../../todo/entities/todo.entity");
 const password_entity_1 = require("../../password/entities/password.entity");
 let User = class User {
 };
@@ -30,8 +31,8 @@ __decorate([
 ], User.prototype, "email", void 0);
 __decorate([
     (0, typeorm_1.OneToOne)(() => password_entity_1.Password),
-    (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", String)
+    (0, typeorm_1.JoinColumn)({ name: "id" }),
+    __metadata("design:type", password_entity_1.Password)
 ], User.prototype, "password", void 0);
 __decorate([
     (0, typeorm_1.OneToMany)(type => todo_entity_1.Todo, todo => todo.userId),
