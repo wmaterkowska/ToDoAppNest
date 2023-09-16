@@ -38,13 +38,23 @@ export class UserService {
     if (!updatedUser) {
       throw new NotFoundException(`User with Id ${id} not found.`)
     }
-    // const { password } = updateUserDto;
-    // updatedUser.password = password;
+    const { username, email } = updateUserDto;
+    if (username) {
+      updatedUser.username = username;
+    }
+    if (email) {
+      updatedUser.email = email;
+    }
+
     return await this.userRepository.save(updatedUser);
   }
 
   async remove(id: number) {
-    await this.userRepository.delete(id)
-    // return `User with #${id} was removed.`;
+    const userToDelete = await this.userRepository.findOneBy({ id });
+    if (!userToDelete) {
+      throw new NotFoundException(`User with Id ${id} not found.`)
+    }
+    await this.userRepository.delete(userToDelete.id)
+    return `User with #${id} was removed.`;
   }
 }

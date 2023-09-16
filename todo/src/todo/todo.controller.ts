@@ -17,7 +17,7 @@ export class TodoController {
   }
 
   @Get()
-  findAll(userId: number) {
+  findAll(@UserId() userId: number) {
     return this.todoService.findAllForUser(userId);
   }
 
@@ -32,7 +32,7 @@ export class TodoController {
   }
 
   @Delete(':id')
-  remove(@Param() params: FindEntityParamsDto) {
+  remove(@UserId() userId: number, @Param() params: FindEntityParamsDto) {
     return this.todoService.remove(params.id);
   }
 }

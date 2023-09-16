@@ -4,11 +4,12 @@ import { UpdateTodoDto } from './dto/update-todo.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Todo } from './entities/todo.entity';
 import { Repository } from 'typeorm';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class TodoService {
 
-  constructor(@InjectRepository(Todo) private todoRepository: Repository<Todo>) { }
+  constructor(@InjectRepository(Todo) private todoRepository: Repository<Todo>, private userService: UserService) { }
 
 
   async create(userId: number, createTodoDto: CreateTodoDto): Promise<Todo> {
@@ -17,18 +18,28 @@ export class TodoService {
     todo.title = title;
     todo.content = content;
     todo.done = done;
-    todo.userId = userId;
+
+    const user = await this.userService.findOneById(userId);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    todo.userId = user.id;
     // todo.lastChange = new Date();
     return await this.todoRepository.save(todo);
   }
 
   async findAllForUser(userId: number): Promise<Todo[]> {
-    return await this.todoRepository.find({ where: { userId: userId } });
+
+    const user = await this.userService.findOneById(userId);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    return await this.todoRepository.find({ where: { userId: user.id } });
   }
 
-  async findOne(id: number) {
-    return await this.todoRepository.findOneBy({ id });
-  }
+  // async findOne(id: number) {
+  //   return await this.todoRepository.findOneBy({ id });
+  // }
 
   async update(id: number, updateTodoDto: UpdateTodoDto) {
     const updatedTodo = await this.todoRepository.findOneBy({ id });

@@ -42,10 +42,22 @@ let UserService = class UserService {
         if (!updatedUser) {
             throw new common_1.NotFoundException(`User with Id ${id} not found.`);
         }
+        const { username, email } = updateUserDto;
+        if (username) {
+            updatedUser.username = username;
+        }
+        if (email) {
+            updatedUser.email = email;
+        }
         return await this.userRepository.save(updatedUser);
     }
     async remove(id) {
-        await this.userRepository.delete(id);
+        const userToDelete = await this.userRepository.findOneBy({ id });
+        if (!userToDelete) {
+            throw new common_1.NotFoundException(`User with Id ${id} not found.`);
+        }
+        await this.userRepository.delete(userToDelete.id);
+        return `User with #${id} was removed.`;
     }
 };
 exports.UserService = UserService;

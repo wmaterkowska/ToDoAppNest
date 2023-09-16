@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const todo_entity_1 = require("./entities/todo.entity");
 const typeorm_2 = require("typeorm");
+const user_service_1 = require("../user/user.service");
 let TodoService = class TodoService {
-    constructor(todoRepository) {
+    constructor(todoRepository, userService) {
         this.todoRepository = todoRepository;
+        this.userService = userService;
     }
     async create(userId, createTodoDto) {
         const { title, content, done } = createTodoDto;
@@ -27,14 +29,19 @@ let TodoService = class TodoService {
         todo.title = title;
         todo.content = content;
         todo.done = done;
-        todo.userId = userId;
+        const user = await this.userService.findOneById(userId);
+        if (!user) {
+            throw new common_1.NotFoundException();
+        }
+        todo.userId = user.id;
         return await this.todoRepository.save(todo);
     }
     async findAllForUser(userId) {
-        return await this.todoRepository.find({ where: { userId: userId } });
-    }
-    async findOne(id) {
-        return await this.todoRepository.findOneBy({ id });
+        const user = await this.userService.findOneById(userId);
+        if (!user) {
+            throw new common_1.NotFoundException();
+        }
+        return await this.todoRepository.find({ where: { userId: user.id } });
     }
     async update(id, updateTodoDto) {
         const updatedTodo = await this.todoRepository.findOneBy({ id });
@@ -57,6 +64,6 @@ exports.TodoService = TodoService;
 exports.TodoService = TodoService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(todo_entity_1.Todo)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository, user_service_1.UserService])
 ], TodoService);
 //# sourceMappingURL=todo.service.js.map

@@ -19,12 +19,17 @@ export class PasswordService {
   async create(userId: number, createPasswordDto: CreatePasswordDto) {
     const { password } = createPasswordDto;
 
+    const user = await this.userService.findOneById(userId);
+    if (!user) {
+      throw new NotFoundException();
+    }
+
     const newPassword = new Password();
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
 
     newPassword.hash = hashedPassword;
-    newPassword.userId = userId;
+    newPassword.userId = user.id;
 
     return await this.passwordRepository.save(newPassword);
   }
@@ -42,12 +47,13 @@ export class PasswordService {
   }
 
   async update(userId: number, updatePasswordDto: UpdatePasswordDto) {
+
     const { password } = updatePasswordDto;
-    // const user = await this.userService.findOneById(userId);
-    // if (!user) {
-    //   throw new NotFoundException(`User with Id ${userId} not found.`)
-    // }
-    const updatedPassword = await this.passwordRepository.findOneBy({ userId: userId });
+    const user = await this.userService.findOneById(userId);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    const updatedPassword = await this.passwordRepository.findOneBy({ userId: user.id });
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -56,7 +62,12 @@ export class PasswordService {
     return await this.passwordRepository.save(updatedPassword);
   }
 
-  async remove(id: number) {
-    return await this.passwordRepository.delete(id);
+  async remove(userId: number) {
+    const user = await this.userService.findOneById(userId);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    const passwordToDelete = await this.passwordRepository.findOneBy({ userId })
+    return await this.passwordRepository.delete(passwordToDelete.id);
   }
 }

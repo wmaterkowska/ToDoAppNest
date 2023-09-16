@@ -27,11 +27,11 @@ export class PasswordController {
 
   @Patch()
   update(@UserId() userId: number, @Body() updatePasswordDto: UpdatePasswordDto) {
-    return this.passwordService.update(+userId, updatePasswordDto);
+    return this.passwordService.update(userId, updatePasswordDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.passwordService.remove(+id);
+  @Delete()
+  remove(@UserId() userId: number) {
+    return this.passwordService.remove(userId);
   }
 }

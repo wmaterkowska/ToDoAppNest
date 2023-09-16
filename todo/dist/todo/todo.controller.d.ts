@@ -8,5 +8,5 @@ export declare class TodoController {
     create(userId: number, createTodoDto: CreateTodoDto): Promise<import("./entities/todo.entity").Todo>;
     findAll(userId: number): Promise<import("./entities/todo.entity").Todo[]>;
     update(param: FindEntityParamsDto, updateTodoDto: UpdateTodoDto): Promise<import("./entities/todo.entity").Todo>;
-    remove(params: FindEntityParamsDto): Promise<String>;
+    remove(userId: number, params: FindEntityParamsDto): Promise<String>;
 }

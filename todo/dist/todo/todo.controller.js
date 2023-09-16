@@ -33,7 +33,7 @@ let TodoController = class TodoController {
     update(param, updateTodoDto) {
         return this.todoService.update(param.id, updateTodoDto);
     }
-    remove(params) {
+    remove(userId, params) {
         return this.todoService.remove(params.id);
     }
 };
@@ -48,6 +48,7 @@ __decorate([
 ], TodoController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, get_user_id_decorator_1.UserId)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
@@ -62,9 +63,10 @@ __decorate([
 ], TodoController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)()),
+    __param(0, (0, get_user_id_decorator_1.UserId)()),
+    __param(1, (0, common_1.Param)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [find_entity_params_dto_1.FindEntityParamsDto]),
+    __metadata("design:paramtypes", [Number, find_entity_params_dto_1.FindEntityParamsDto]),
     __metadata("design:returntype", void 0)
 ], TodoController.prototype, "remove", null);
 exports.TodoController = TodoController = __decorate([
