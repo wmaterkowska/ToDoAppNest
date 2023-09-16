@@ -14,6 +14,7 @@ require("reflect-metadata");
 const typeorm_1 = require("typeorm");
 const todo_entity_1 = require("../../todo/entities/todo.entity");
 const password_entity_1 = require("../../password/entities/password.entity");
+const UniqueValidation_1 = require("../../shared/UniqueValidation");
 let User = class User {
 };
 exports.User = User;
@@ -26,7 +27,8 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "username", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ unique: true }),
+    (0, UniqueValidation_1.IsUniqueColumn)({ message: "Error" }),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
@@ -39,7 +41,7 @@ __decorate([
     __metadata("design:type", Array)
 ], User.prototype, "todos", void 0);
 exports.User = User = __decorate([
-    (0, typeorm_1.Unique)(["email"]),
-    (0, typeorm_1.Entity)()
+    (0, typeorm_1.Entity)(),
+    (0, typeorm_1.Unique)(["email"])
 ], User);
 //# sourceMappingURL=user.entity.js.map

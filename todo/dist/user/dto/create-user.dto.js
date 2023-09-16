@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateUserDto = void 0;
 const class_validator_1 = require("class-validator");
-const UniqueValidation_1 = require("../../shared/UniqueValidation");
 class CreateUserDto {
 }
 exports.CreateUserDto = CreateUserDto;
@@ -23,7 +22,6 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsEmail)(),
     (0, class_validator_1.IsNotEmpty)(),
-    (0, UniqueValidation_1.IsUnique)({ always: true, message: 'Email already in use.' }),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "email", void 0);
 //# sourceMappingURL=create-user.dto.js.map
