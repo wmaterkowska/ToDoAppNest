@@ -33,11 +33,11 @@ __decorate([
 ], User.prototype, "email", void 0);
 __decorate([
     (0, typeorm_1.OneToOne)(() => password_entity_1.Password),
-    (0, typeorm_1.JoinColumn)({ name: "id" }),
+    (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", password_entity_1.Password)
 ], User.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(type => todo_entity_1.Todo, todo => todo.userId),
+    (0, typeorm_1.OneToMany)(() => todo_entity_1.Todo, (todo) => todo.userId),
     __metadata("design:type", Array)
 ], User.prototype, "todos", void 0);
 exports.User = User = __decorate([

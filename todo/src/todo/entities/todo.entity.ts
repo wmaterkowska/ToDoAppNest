@@ -20,6 +20,6 @@ export class Todo {
   @Column({ default: new Date() })
   lastChange: Date;
 
-  @ManyToOne(type => User, user => user.id)
+  @ManyToOne(() => User, (user) => user.todos)
   userId: number;
 }

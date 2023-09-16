@@ -19,10 +19,10 @@ export class User {
   email: string;
 
   @OneToOne(() => Password)
-  @JoinColumn({ name: "id" })
+  @JoinColumn()
   password: Password;
 
-  @OneToMany(type => Todo, todo => todo.userId)
+  @OneToMany(() => Todo, (todo) => todo.userId)
   todos: Todo[]
 
 }

@@ -37,7 +37,7 @@ __decorate([
     __metadata("design:type", Date)
 ], Todo.prototype, "lastChange", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(type => user_entity_1.User, user => user.id),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, (user) => user.todos),
     __metadata("design:type", Number)
 ], Todo.prototype, "userId", void 0);
 exports.Todo = Todo = __decorate([
